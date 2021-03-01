@@ -16,8 +16,21 @@ import androidx.fragment.app.DialogFragment;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+interface OnSubmitClick
+{
+    void Do();
+}
 public class MyDialogFragment extends DialogFragment {
+    private OnSubmitClick act;
+    MyDialogFragment()
+    {
+        super();
+    }
+    MyDialogFragment(OnSubmitClick lambda_func)
+    {
+        super();
+        act = lambda_func;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -41,15 +54,11 @@ public class MyDialogFragment extends DialogFragment {
         return builder
                 .setView(view)
                 .setTitle("Вы согласны?")
-                .setPositiveButton("Да", new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent =  new Intent(getActivity(), OtherActvity.class);
-                        intent.putExtra("path", getArguments().getString("path"));
-                        getActivity().startActivity(intent);
-                    }
+                .setPositiveButton("Да", (dialog, which) -> {
+                    act.Do();
                 })
                 .setNegativeButton("Нет", null)
                 .create();
     }
+
 }

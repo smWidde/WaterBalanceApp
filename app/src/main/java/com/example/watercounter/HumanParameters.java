@@ -13,17 +13,27 @@ public class HumanParameters implements Serializable {
     public Boolean Sex;
     public Integer Height;
     public Integer Weight;
+    public Integer MillilitresToDrink;
+    public Integer MillilitresDrank;
+    public Integer CompletedDays;
     public HumanParameters()
     {
         Sex = false;
         Height = 170;
         Weight = 80;
     }
-    public HumanParameters(Boolean Sex, Integer Height, Integer Weight)
+    public HumanParameters(Boolean Sex, Integer Height, Integer Weight, Integer MillilitresDrank, Integer CompletedDays)
     {
         this.Sex = Sex;
         this.Height = Height;
         this.Weight = Weight;
+        this.MillilitresDrank = MillilitresDrank;
+        this.CompletedDays = CompletedDays;
+        MillilitresToDrink = 40*Weight;
+    }
+    public HumanParameters(Boolean Sex, Integer Height, Integer Weight)
+    {
+        this(Sex, Height, Weight, 0, 0);
     }
     public HumanParameters(byte[] bytes)
     {
@@ -36,6 +46,9 @@ public class HumanParameters implements Serializable {
             this.Sex = hp.Sex;
             this.Weight = hp.Weight;
             this.Height = hp.Height;
+            this.CompletedDays = hp.CompletedDays;
+            this.MillilitresDrank = hp.MillilitresDrank;
+            this.MillilitresToDrink = hp.MillilitresToDrink;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
